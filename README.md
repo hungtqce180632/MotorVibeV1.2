@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SWP
 
 Setup git
@@ -14,3 +15,6 @@ git config --list
 git remote add origin https://github.com/ckchfbc/SWP.git
 git pull origin main 
 }
+=======
+# MotorVibeV1.2
+>>>>>>> 1b9e558ef87d258e6f24417f259d49f99c87b763
