@@ -179,31 +179,29 @@ public class AppointmentController extends HttpServlet {
 
         //get for emp
         if (request.getParameter("fetchDataForEmployee") != null && request.getParameter("fetchDataForEmployee").equals("true")) {
-            String userEmail = request.getParameter("userEmail");
-            EmployeeDAO empDao = new EmployeeDAO();
-            EmployeeModels emp = new EmployeeModels();
-            try {
-                emp = empDao.getEmployeeByEmail(userEmail);
-            } catch (SQLException ex) {
-                Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    String userEmail = request.getParameter("userEmail");
+    EmployeeDAO empDao = new EmployeeDAO();
+    EmployeeModels emp = new EmployeeModels();
+    try {
+        emp = empDao.getEmployeeByEmail(userEmail);
+    } catch (SQLException ex) {
+        Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+    }
 
-            int emp_id = emp.getEmployeeId();
+    int emp_id = emp.getEmployeeId();
+    AppointmentDAO appDao = new AppointmentDAO();
+    List<AppointmentModel> appointments = appDao.getAppointmentEmployee(emp_id);
 
-            AppointmentDAO appDao = new AppointmentDAO();
-            List<AppointmentModel> appointments = new ArrayList<>();
+    // Set response type to JSON and encode in UTF-8
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
 
-            appointments = appDao.getAppointmentEmployee(emp_id);
+    // Convert appointment list to JSON using Gson
+    Gson gson = new Gson();
+    String appointmentJson = gson.toJson(appointments);
+    response.getWriter().write(appointmentJson);
+}
 
-            // Set response type to JSON and encode in UTF-8
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            // Convert employee list to JSON using Gson
-            Gson gson = new Gson();
-            String appointmentJson = gson.toJson(appointments);
-            response.getWriter().write(appointmentJson);
-        }
 
         //change status
         if (request.getParameter("changeAppointment") != null && request.getParameter("changeAppointment").equals("true")) {
