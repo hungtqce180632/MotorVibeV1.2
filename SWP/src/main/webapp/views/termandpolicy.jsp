@@ -11,7 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Terms & Policy | DriveAura</title>
+        <title>Terms & Policy | MotoVibe</title>
         <style>
             * {
                 box-sizing: border-box;
@@ -141,8 +141,8 @@
     <body>
         <div class="container">
             <header>
-                <h1>DriveAura Terms & Policies</h1>
-                <p>Welcome to DriveAura. Please choose an option below to review our terms or policy.</p>
+                <h1>MotoVibe Terms & Policies</h1>
+                <p>Welcome to MotoVibe. Please choose an option below to review our terms or policy.</p>
             </header>
 
             <div class="menu">
@@ -154,43 +154,43 @@
 
             <section id="terms" class="content-section" style="display: none;">
                 <h2>Terms of Service</h2>
-                <p>By using DriveAura, you agree to the following terms:</p>
+                <p>By using MotoVibe, you agree to the following terms:</p>
                 <h3>1. Account Creation & Responsibilities</h3>
-                <p>By creating an account, you agree to provide accurate information. DriveAura reserves the right to terminate any account found in violation of our terms or if fraudulent activity is detected.</p>
+                <p>By creating an account, you agree to provide accurate information. MotoVibe reserves the right to terminate any account found in violation of our terms or if fraudulent activity is detected.</p>
 
                 <h3>2. Privacy and Data Usage</h3>
-                <p>We value your privacy. DriveAura collects and uses data according to our Privacy Policy to enhance your experience. Collected data may include contact details, browsing history, and preferences.</p>
+                <p>We value your privacy. MotoVibe collects and uses data according to our Privacy Policy to enhance your experience. Collected data may include contact details, browsing history, and preferences.</p>
 
                 <h3>3. Vehicle Listings and Pricing</h3>
-                <p>While DriveAura strives to present accurate vehicle data, it is not liable for discrepancies. Prices and availability are subject to change without notice.</p>
+                <p>While MotoVibe strives to present accurate vehicle data, it is not liable for discrepancies. Prices and availability are subject to change without notice.</p>
 
                 <h3>4. Transactions and Order Management</h3>
-                <p>All transactions on DriveAura are securely processed. DriveAura reserves the right to cancel orders based on availability, user eligibility, or payment issues.</p>
+                <p>All transactions on MotoVibe are securely processed. MotoVibe reserves the right to cancel orders based on availability, user eligibility, or payment issues.</p>
 
                 <h3>5. Review and Feedback</h3>
-                <p>DriveAura encourages genuine reviews. We reserve the right to moderate or remove reviews that breach our guidelines.</p>
+                <p>MotoVibe encourages genuine reviews. We reserve the right to moderate or remove reviews that breach our guidelines.</p>
 
                 <h3>6. Liability Disclaimer</h3>
-                <p>DriveAura is not responsible for damages or losses caused by website downtime, errors, or third-party issues. Users agree to use DriveAura at their own risk.</p>
+                <p>MotoVibe is not responsible for damages or losses caused by website downtime, errors, or third-party issues. Users agree to use MotoVibe at their own risk.</p>
 
                 <h3>7. Amendments to Terms & Policies</h3>
-                <p>DriveAura may update these terms at any time. Significant updates will be communicated to registered users by email or on the website.</p>
+                <p>MotoVibe may update these terms at any time. Significant updates will be communicated to registered users by email or on the website.</p>
 
                 <h3>8. Governing Law</h3>
-                <p>These terms are governed by the laws of the jurisdiction in which DriveAura operates. Users agree to submit to the exclusive jurisdiction of the courts therein.</p>
+                <p>These terms are governed by the laws of the jurisdiction in which MotoVibe operates. Users agree to submit to the exclusive jurisdiction of the courts therein.</p>
             </section>
 
             <section id="policy" class="content-section" style="display: none;">
                 <h2>Privacy Policy</h2>
                 <p>Your privacy is important to us. This policy explains how we handle your information:</p>
                 <h3>1. Information Collection</h3>
-                <p>DriveAura collects personal information when you register, make a purchase, or interact with our services. This information may include your name, email, address, and payment details.</p>
+                <p>MotoVibe collects personal information when you register, make a purchase, or interact with our services. This information may include your name, email, address, and payment details.</p>
 
                 <h3>2. Use of Information</h3>
                 <p>The information we collect is used to provide, improve, and personalize our services. We may also use your information to communicate with you about offers, promotions, and updates.</p>
 
                 <h3>3. Data Protection</h3>
-                <p>DriveAura employs industry-standard security measures to protect your information from unauthorized access or disclosure. However, no method of transmission over the Internet is 100% secure.</p>
+                <p>MotoVibe employs industry-standard security measures to protect your information from unauthorized access or disclosure. However, no method of transmission over the Internet is 100% secure.</p>
 
                 <h3>4. Sharing Information</h3>
                 <p>We do not sell or rent your personal information to third parties. Your data may be shared with service providers who assist us in operating our website or conducting our business.</p>
@@ -199,7 +199,7 @@
                 <p>You have the right to access, correct, or delete your personal information. If you wish to exercise these rights, please contact us.</p>
 
                 <h3>6. Changes to Privacy Policy</h3>
-                <p>DriveAura may update this policy occasionally. Users will be notified of significant changes via email or through our website.</p>
+                <p>MotoVibe may update this policy occasionally. Users will be notified of significant changes via email or through our website.</p>
             </section>
 
             <footer class="footer-section">

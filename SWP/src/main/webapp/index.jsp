@@ -25,7 +25,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Outfit:wght@700&display=swap" rel="stylesheet">
         <link rel="icon" href="${host}/ImageController/logo.png" type="image/x-icon">        
-        <title >DriveAura</title>
+        <title >MotoVibe</title>
         <style>
             *{
                 margin: 0;
@@ -82,7 +82,7 @@
         <!-- Navigation -->
         <nav class="shadow-sm rounded navbar navbar-expand-md navbar-light bg-white position-fixed top-0 start-0 w-100 m-0 p-0" style="z-index: 1;">
             <div class="container">
-                <a class="navbar-brand" href="/"><h1>DriveAura</h1></a>
+                <a class="navbar-brand" href="/"><h1>MotoVibe</h1></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

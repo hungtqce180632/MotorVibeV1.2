@@ -132,7 +132,7 @@ public class SendOtpServlet extends HttpServlet {
                     Message.RecipientType.TO,
                     InternetAddress.parse(toEmail)
             );
-            message.setSubject("Your OTP code from DriveAura");
+            message.setSubject("Your OTP code from MotoVibe");
             message.setText("Hello,\n\nYour OTP code is: " + otp
                           + "\n\nPlease enter this code to verify.\n\nThank you!");
 

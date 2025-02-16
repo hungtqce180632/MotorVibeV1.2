@@ -61,7 +61,7 @@
                 <!-- Right side with form -->
                 <div class="col-lg-6 d-flex justify-content-center align-items-center">                     
                     <div class="w-100" style="max-width: 400px;">
-                        <a class="logo text-decoration-none" href="/"><h1 class="mb-5">DriveAura</h1></a>   
+                        <a class="logo text-decoration-none" href="/"><h1 class="mb-5">MotoVibe</h1></a>   
 
                         <h2 class="fw-bold">Welcome back!</h2>
                         <c:if test="${not empty message}">

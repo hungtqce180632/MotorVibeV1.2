@@ -263,7 +263,7 @@
             <div class="row h-100">
                 <div class="col-lg-6 d-flex justify-content-center align-items-center">
                     <div class="w-100" style="max-width: 400px;">
-                        <a class="logo text-decoration-none" href="/"><h1 class="mb-5">DriveAura</h1></a>   
+                        <a class="logo text-decoration-none" href="/"><h1 class="mb-5">MotoVibe</h1></a>   
                         <div class="alert alert-warning d-none" id="alertOTP">Please verify OTP.</div>
                         <c:if test="${not empty message}">
                             <div class="alert alert-warning">${message}</div>

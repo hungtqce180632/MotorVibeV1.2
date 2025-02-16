@@ -149,48 +149,28 @@ public class AccountDAO {
         return cus_acc;
     }
 
-    public boolean addNewAccount(String email, String name, String password) {
-    String sql = "INSERT INTO user_account (email, password, role, date_created, status) VALUES (?, ?, ?, ?, ?)";
-    String sql2 = "INSERT INTO customers (user_id, name, email, status) VALUES (?, ?, ?, ?)";
+    public boolean addNewAccount(String email, String name, String passwword) {
+        String sql = "INSERT INTO user_account (email, password, role, date_created, status) VALUES (?, ?, ?, ?, ?)";
+        MD5 md5 = new MD5();
+        String hashPassword = md5.getMd5(passwword);
+        String role = "customer";
+        String date_created = String.valueOf(LocalDate.now());
+        boolean status = true;
 
-    MD5 md5 = new MD5();
-    String hashedPassword = md5.getMd5(password);
-    String role = "customer";
-    String date_created = String.valueOf(LocalDate.now());
-    boolean status = true;
-
-    try (Connection conn = DBConnection.getConnection()) {
-        // Insert into user_account
-        PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, email);
-        stmt.setString(2, hashedPassword);
-        stmt.setString(3, role);
-        stmt.setString(4, date_created);
-        stmt.setBoolean(5, status);
-        int rowsAffected = stmt.executeUpdate();
-
-        if (rowsAffected > 0) {
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int userId = generatedKeys.getInt(1); // Get generated user_id
-
-                // Insert into customers
-                PreparedStatement stmt2 = conn.prepareStatement(sql2);
-                stmt2.setInt(1, userId);
-                stmt2.setString(2, name);
-                stmt2.setString(3, email);
-                stmt2.setBoolean(4, status);
-                stmt2.executeUpdate();
-            }
+        try (Connection conn = DBConnection.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, hashPassword);
+            stmt.setString(3, role);
+            stmt.setString(4, date_created);
+            stmt.setBoolean(5, status);
+            stmt.executeUpdate();
             return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
     }
-    return false;
-}
-
 
     public boolean addNewCustomerAccount(String email, String name) {
         String sql = "SELECT * FROM user_account WHERE email = ? AND role = ? AND status = 1";

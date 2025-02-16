@@ -252,7 +252,7 @@
             <!-- Left side with form -->
             <div class="col-lg-6 d-flex justify-content-center align-items-center">
                 <div class="w-100" style="max-width: 400px;">
-                    <a class="logo text-decoration-none" href="/"><h1 class="mb-3">Welcome to  DriveAura</h1></a>   
+                    <a class="logo text-decoration-none" href="/"><h1 class="mb-3">Welcome to  MotoVibe</h1></a>   
                     <!-- Hiện thông báo có tài khoản rồi -->
                     <c:if test="${not empty message}">
                         <div class="alert alert-warning">${message}</div>

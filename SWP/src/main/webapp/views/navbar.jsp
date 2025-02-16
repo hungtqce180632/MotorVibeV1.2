@@ -32,7 +32,7 @@
         <!-- Navigation -->
         <nav class="shadow-sm rounded navbar navbar-expand-md navbar-light bg-white position-fixed top-0 start-0 w-100 m-0 p-0" style="z-index: 2;">
             <div class="container">
-                <a class="navbar-brand" href="/"><h1>DriveAura</h1></a>
+                <a class="navbar-brand" href="/"><h1>MotoVibe</h1></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

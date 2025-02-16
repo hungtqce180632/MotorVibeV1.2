@@ -88,7 +88,7 @@
         <div class="container-fluid m-0 p-0">
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center col-12">
-                    <a class="navbar-brand fs-3" href="/AdminController/Dashboard">Hello <span id="adminName">Admin</span></a>
+                    <a class="navbar-brand fs-3" href="/AdminController/Dashboard">Admin <span id="adminName">Admin</span></a>
                     <div class="nav-item justify-content-end me-3">
                         <button onclick="logOut()" class="btn btn-danger d-flex align-items-center w-100" id="logout-button">
                             <i class="fas fa-sign-out-alt"></i>

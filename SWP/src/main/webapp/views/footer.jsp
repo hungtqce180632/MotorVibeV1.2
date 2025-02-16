@@ -142,23 +142,23 @@
         <!--Contact link-->
         <div class="dv-social-button">
             <div class="dv-social-button-content">
-                <a href="tel:0973124868" class="call-icon" target="_blank" rel="nofollow">
+                <a href="tel:0817771184" class="call-icon" target="_blank" rel="nofollow">
                     <i class="fa fa-phone"></i>
                     <div class="animated alo-circle"></div>
                     <div class="animated alo-circle-fill"></div>
-                    <span>Hotline: 0973 124 868</span>
+                    <span>Hotline: 0817 771 184</span>
                 </a>
-                <a href="sms:0979837625" target="_blank" class="sms">
+                <a href="sms:0817771184" target="_blank" class="sms">
                     <i class="fa fa-weixin"></i>
-                    <span>SMS: 0979 837 625</span>
+                    <span>SMS: 0817 771 184</span>
                 </a>
-                <a href="https://www.facebook.com/Nguyen12c1/" target="_blank" class="mes">
+                <a href="https://www.facebook.com/hung.dps.2024" target="_blank" class="mes">
                     <i class="fa fa-facebook-square"></i>
                     <span>Nhắn tin Facebook</span>
                 </a>
-                <a href="http://zalo.me/0973124868" target="_blank" class="zalo">
+                <a href="http://zalo.me/0817771184" target="_blank" class="zalo">
                     <i class="fa fa-commenting-o"></i>
-                    <span>Zalo: 0973 124 868</span>
+                    <span>Zalo: 0817 771 184</span>
                 </a>
             </div>
 
