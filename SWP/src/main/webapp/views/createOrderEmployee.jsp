@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Bootstrap, jQuery, toastr, SweetAlert2 -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -28,11 +29,10 @@
     </head>
     <body>
         <%
-            // Lấy danh sách cookies từ request
+            // Retrieve cookies from the request
             Cookie[] cookies = request.getCookies();
             String userEmail = null;
             String role = null;
-            // Duyệt qua các cookies và kiểm tra cookie "userEmail"
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("admin")) {
@@ -40,21 +40,21 @@
                         break;
                     }
                     if (cookie.getName().equals("userEmail")) {
-                        userEmail = cookie.getValue(); // Lấy giá trị email từ cookie                        
-%>
-        <input hidden value="<%= userEmail%>" id="userEmail">
+                        userEmail = cookie.getValue();
+        %>
+        <input type="hidden" value="<%= userEmail %>" id="userEmail">
         <%
                     }
                     if (cookie.getName().equals("role")) {
-                        role = cookie.getValue(); // Lấy giá trị email từ cookie                        
+                        role = cookie.getValue();
                     }
                 }
             }
-
-            if (!role.equals("employee")) {
+            if (!"employee".equals(role)) {
                 response.sendRedirect("/");
             }
         %>
+
         <div class="container mt-5">
             <h1 class="mb-4 text-center">Create Order for Customer</h1>
 
@@ -71,8 +71,9 @@
                 <p><strong>Email:</strong> <span id="customerEmail">N/A</span></p>
                 <p><strong>Phone Number:</strong> <span id="customerPhone">N/A</span></p>
                 <p><strong>Address:</strong> <span id="customerAddress">N/A</span></p>
-                <p><strong>Citizen Identification:</strong> <input id="customerCCCD" class="form-control" placeholder="Enter Citizen Identification" value="" required></p>
-
+                <p><strong>Citizen Identification:</strong> 
+                    <input id="customerCCCD" class="form-control" placeholder="Enter Citizen Identification" required>
+                </p>
             </div>
 
             <!-- Car Information -->
@@ -92,6 +93,15 @@
                 <p><strong>Price:</strong> $<span id="carPrice">0</span></p>
             </div>
 
+            <!-- Payment Method Selection -->
+            <div class="mb-3">
+                <label for="paymentMethod" class="form-label"><strong>Payment Method</strong></label>
+                <div>
+                    <input type="radio" name="paymentMethod" id="paymentMethodCash" value="Cash" checked> Cash
+                    <input type="radio" name="paymentMethod" id="paymentMethodOnline" value="Online Transfer"> Online Transfer
+                </div>
+            </div>
+
             <!-- Action Button -->
             <div class="text-center mt-4">
                 <button type="button" onclick="createOrder()" id="confirmOrderBtn" class="btn btn-success btn-lg" disabled>Create Order</button>
@@ -105,7 +115,7 @@
                 $.ajax({
                     url: '/CustomerController',
                     type: 'POST',
-                    data: {getCustomerInfo: customerId},
+                    data: { getCustomerInfo: customerId },
                     dataType: 'json',
                     success: function (customer) {
                         if (customer.customer_id !== 0) {
@@ -117,7 +127,7 @@
                             $('#customerInfo').show();
                             checkEnableOrderButton();
                         } else {
-                            Swal.fire('Error', customer.error || 'Customer not found or get banned', 'error');
+                            Swal.fire('Error', customer.error || 'Customer not found or banned', 'error');
                         }
                     },
                     error: function () {
@@ -132,14 +142,12 @@
                 $.ajax({
                     url: '/CarController',
                     type: 'POST',
-                    data: {car_id_details: carId},
+                    data: { car_id_details: carId },
                     dataType: 'json',
                     success: function (response) {
-                        console.log(response);
                         if (response.car.car_id !== 0) {
                             const car = response.car;
                             $('#carName').text(car.car_name);
-                            // Thông tin thương hiệu, model và loại nhiên liệu
                             let brandName = 'N/A';
                             response.brands.forEach(function (brand) {
                                 if (brand.brand_id === car.brand_id) {
@@ -147,7 +155,6 @@
                                 }
                             });
                             $('#carBrand').text(brandName);
-
                             let modelName = 'N/A';
                             response.models.forEach(function (model) {
                                 if (model.model_id === car.model_id) {
@@ -155,7 +162,6 @@
                                 }
                             });
                             $('#carModel').text(modelName);
-
                             let fuelName = 'N/A';
                             response.fuels.forEach(function (fuel) {
                                 if (fuel.fuel_id === car.fuel_id) {
@@ -177,59 +183,61 @@
                 });
             });
 
-
-
-
+            // Create order function for employee
             function createOrder() {
                 var customerId = $('#customerId').val();
                 var carId = $('#carId').val();
                 var carPrice = document.getElementById("carPrice").innerHTML;
                 var cusCCCD = document.getElementById("customerCCCD").value;
                 var userEmail = document.getElementById("userEmail").value;
+                // Get the selected payment method
+                var paymentMethod = $('input[name="paymentMethod"]:checked').val();
 
                 checkHaveFiveNotDoneOrder(customerId)
-                        .then(hasTooManyOrders => {
-                            if (hasTooManyOrders) {
-                                return; // Stop function execution if there are too many orders
-                            }
-
-                            // Proceed with order creation if check passes
-                            $.ajax({
-                                url: '/OrderController',
-                                type: 'POST',
-                                data: {createOrderEmp: "true", customer_id: customerId, car_id: carId, car_price: carPrice, cusCCCD: cusCCCD, userEmail: userEmail},
-                                success: function (response) {
-                                    if (response === true) {
-                                        Swal.fire({
-                                            title: 'Order Created Successfully!',
-                                            text: 'The order has been created successfully.',
-                                            icon: 'success',
-                                            confirmButtonText: 'OK'
-                                        }).then(() => {
-                                            window.close(); // Close the webpage after success confirmation
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: response.error || 'Failed to create order',
-                                            icon: 'error',
-                                            confirmButtonText: 'OK'
-                                        });
-                                    }
-                                },
-                                error: function () {
-                                    Swal.fire('Error', 'Failed to create order', 'error');
+                    .then(hasTooManyOrders => {
+                        if (hasTooManyOrders) {
+                            return; // Stop execution if customer has too many pending orders
+                        }
+                        $.ajax({
+                            url: '/OrderController',
+                            type: 'POST',
+                            data: {
+                                createOrderEmp: "true",
+                                customer_id: customerId,
+                                car_id: carId,
+                                car_price: carPrice,
+                                cusCCCD: cusCCCD,
+                                userEmail: userEmail,
+                                payment_method: paymentMethod
+                            },
+                            success: function (response) {
+                                if (response === true) {
+                                    Swal.fire({
+                                        title: 'Order Created Successfully!',
+                                        text: 'The order has been created successfully.',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        window.close();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: response.error || 'Failed to create order',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
                                 }
-                            });
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
+                            },
+                            error: function () {
+                                Swal.fire('Error', 'Failed to create order', 'error');
+                            }
                         });
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
             }
-
-
-
-
 
             // Enable the order button only if both customer and car info are fetched
             function checkEnableOrderButton() {
@@ -238,29 +246,30 @@
                 $('#confirmOrderBtn').prop('disabled', !(customerFetched && carFetched));
             }
 
+            // Check if the customer already has five unfinished orders
             function checkHaveFiveNotDoneOrder(customer_id) {
                 return new Promise((resolve, reject) => {
                     $.ajax({
                         url: "/OrderController",
                         type: "POST",
-                        data: {checkHaveFiveNotDoneOrder: 'true', customer_id: customer_id},
+                        data: { checkHaveFiveNotDoneOrder: 'true', customer_id: customer_id },
                         success: function (response) {
                             if (response === true) {
                                 Swal.fire({
                                     icon: 'warning',
                                     title: 'Too many orders',
-                                    text: 'You need to pay or wait until the unfinished orders expire before placing another order. You can also go to the store to buy directly.',
+                                    text: 'Please complete or wait for your pending orders before creating a new one.',
                                     confirmButtonText: 'OK'
                                 }).then(() => {
-                                    resolve(true); // Resolve with true if there are too many orders
+                                    resolve(true);
                                 });
                             } else {
-                                resolve(false); // Resolve with false if the user can create a new order
+                                resolve(false);
                             }
                         },
                         error: function (xhr, status, error) {
-                            console.error("Error fetching customer data: " + error);
-                            reject(error); // Reject the promise if there's an error
+                            console.error("Error:", error);
+                            reject(error);
                         }
                     });
                 });
