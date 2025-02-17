@@ -113,15 +113,14 @@
                                 <span>Revenue</span>
                             </a>
                         </li>
+                        
+                        <%-- Dat sua lai cai nay theo cach Dat hieu --%>
+                        <a class="nav-link d-flex align-items-center text-white" id="v-pills-cars-tab"
+                           href="<%= request.getContextPath()%>/motorbikeManagement">
+                            <i class="fa-solid fa-car"></i>
+                            <span>Motorbike Management</span>
+                        </a>
 
-                        <li class="nav-item mb-2">
-                            <a class="nav-link d-flex align-items-center text-white" id="v-pills-cars-tab"
-                               data-bs-toggle="pill" href="#v-pills-cars" role="tab" aria-controls="v-pills-cars"
-                               aria-selected="false">
-                                <i class="fa-solid fa-car"></i>
-                                <span>Cars</span>
-                            </a>
-                        </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link d-flex align-items-center text-white" id="v-pills-cusomers-tab"
                                data-bs-toggle="pill" href="#v-pills-cusomers" role="tab" aria-controls="v-pills-cusomers"
