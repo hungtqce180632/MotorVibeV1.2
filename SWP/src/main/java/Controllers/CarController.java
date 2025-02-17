@@ -39,16 +39,16 @@ public class CarController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             out.println("<html><head><title>CarController</title></head><body>");
             out.println("<h1>CarController at " + request.getContextPath() + "</h1>");
             out.println("</body></html>");
         }
     }
-    
+
     // Utility for sending an error message to session & redirect
     private void sendMessageError(HttpServletRequest request, HttpServletResponse response,
-                                  String message, String redirect) throws IOException {
+            String message, String redirect) throws IOException {
         request.getSession().setAttribute("message", message);
         response.sendRedirect(redirect);
     }
@@ -83,7 +83,7 @@ public class CarController extends HttpServlet {
             String[] s = host.split("/");
             String id = s[s.length - 1];
             response.setContentType("text/html;charset=UTF-8");
-            try ( PrintWriter out = response.getWriter()) {
+            try (PrintWriter out = response.getWriter()) {
                 boolean isUpdate = carDAO.changeStatus(Integer.parseInt(id));
                 if (isUpdate) {
                     out.println("<script>");
@@ -110,14 +110,14 @@ public class CarController extends HttpServlet {
         BrandDAO brandDAO = new BrandDAO();
         ModelDAO modelDAO = new ModelDAO();
         FuelDAO fuelDAO = new FuelDAO();
-        
+
         // 1) If user clicked “BUY” button on car detail page:
         if ("buyCar".equals(request.getParameter("action"))) {
             // parse carId from request
             String carIdParam = request.getParameter("car_id");
             if (carIdParam == null) {
-                sendMessageError(request, response, 
-                    "No car specified.", "/");
+                sendMessageError(request, response,
+                        "No car specified.", "/");
                 return;
             }
             int carId = Integer.parseInt(carIdParam);
@@ -136,9 +136,9 @@ public class CarController extends HttpServlet {
             }
             if (userEmail == null) {
                 // not logged in
-                sendMessageError(request, response, 
-                    "Please log in before buying.", 
-                    "/HomePageController/Login");
+                sendMessageError(request, response,
+                        "Please log in before buying.",
+                        "/HomePageController/Login");
                 return;
             }
 
@@ -152,8 +152,8 @@ public class CarController extends HttpServlet {
             }
             if (acc == null) {
                 // no such user in DB
-                sendMessageError(request, response, 
-                    "Account not found. Please log in again.", "/");
+                sendMessageError(request, response,
+                        "Account not found. Please log in again.", "/");
                 return;
             }
 
@@ -161,8 +161,8 @@ public class CarController extends HttpServlet {
             if (isProfileIncomplete(acc)) {
                 // missing something => redirect to /CustomerController/Profile
                 sendMessageError(request, response,
-                    "Please finish your profile to buy a product.",
-                    "/CustomerController/Profile");
+                        "Please finish your profile to buy a product.",
+                        "/CustomerController/Profile");
                 return;
             }
 
@@ -172,7 +172,7 @@ public class CarController extends HttpServlet {
             response.sendRedirect("/OrderController/Create?carId=" + carId);
             return;
         }
-        
+
         // 1) Show data list
         if ("true".equals(request.getParameter("fetchData"))) {
             List<CarModel> cars = new ArrayList<>();
@@ -205,13 +205,9 @@ public class CarController extends HttpServlet {
             List<ModelsCarModel> models = new ArrayList<>();
             List<FuelModel> fuels = new ArrayList<>();
 
-            try {
-                brands = brandDAO.getAllBrands();
-                models = modelDAO.getAllModels();
-                fuels = fuelDAO.getAllFuels();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            brands = brandDAO.getAllBrands();
+            models = modelDAO.getAllModels();
+            fuels = fuelDAO.getAllFuels();
 
             Map<String, Object> data = new HashMap<>();
             data.put("brands", brands);
@@ -241,8 +237,7 @@ public class CarController extends HttpServlet {
                 // Insert images
                 int car_id = carDAO.findCarIdByName(car);
                 String sql = "INSERT INTO car_image (car_id, picture) VALUES (?, ?)";
-                try (Connection conn = DBConnection.getConnection();
-                     PreparedStatement stmt = conn.prepareStatement(sql)) {
+                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                     for (Part part : request.getParts()) {
                         if ("images".equals(part.getName()) && part.getSize() > 0) {
@@ -264,7 +259,7 @@ public class CarController extends HttpServlet {
             }
             // Close popup
             response.setContentType("text/html;charset=UTF-8");
-            try ( PrintWriter out = response.getWriter()) {
+            try (PrintWriter out = response.getWriter()) {
                 out.println("<script>");
                 out.println("window.close();");
                 out.println("</script>");
@@ -277,8 +272,7 @@ public class CarController extends HttpServlet {
             int carId = Integer.parseInt(request.getParameter("carImageId"));
             String sql = "SELECT car_image_id FROM car_image WHERE car_id = ?";
 
-            try (Connection conn = DBConnection.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, carId);
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
@@ -301,7 +295,7 @@ public class CarController extends HttpServlet {
 
             if (isUpdated) {
                 response.setContentType("text/html;charset=UTF-8");
-                try ( PrintWriter out = response.getWriter()) {
+                try (PrintWriter out = response.getWriter()) {
                     out.println("<script>");
                     out.println("window.close();");
                     out.println("</script>");
@@ -350,7 +344,7 @@ public class CarController extends HttpServlet {
                     Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 response.setContentType("text/html;charset=UTF-8");
-                try ( PrintWriter out = response.getWriter()) {
+                try (PrintWriter out = response.getWriter()) {
                     out.println("<script>");
                     out.println("window.close();");
                     out.println("</script>");
@@ -443,18 +437,26 @@ public class CarController extends HttpServlet {
     public String getServletInfo() {
         return "CarController - now checks if the user's profile is complete before allowing a buy action";
     }
-    
+
     /**
      * Helper to check if name/email/address/phone/cus_id_number are missing.
      */
     private boolean isProfileIncomplete(CustomerAccountModel acc) {
-        if (acc.getName() == null || acc.getName().trim().isEmpty()) return true;
-        if (acc.getEmail() == null || acc.getEmail().trim().isEmpty()) return true;
-        if (acc.getAddress() == null || acc.getAddress().trim().isEmpty()) return true;
-        if (acc.getPhone_number() == null || acc.getPhone_number().trim().isEmpty()) return true;
-        if (acc.getCus_id_number() == null || acc.getCus_id_number().trim().isEmpty()) return true;
+        if (acc.getName() == null || acc.getName().trim().isEmpty()) {
+            return true;
+        }
+        if (acc.getEmail() == null || acc.getEmail().trim().isEmpty()) {
+            return true;
+        }
+        if (acc.getAddress() == null || acc.getAddress().trim().isEmpty()) {
+            return true;
+        }
+        if (acc.getPhone_number() == null || acc.getPhone_number().trim().isEmpty()) {
+            return true;
+        }
+        if (acc.getCus_id_number() == null || acc.getCus_id_number().trim().isEmpty()) {
+            return true;
+        }
         return false;
     }
 }
-
-

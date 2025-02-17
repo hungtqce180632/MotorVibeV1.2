@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FuelDAO {
 
-    public static List<FuelModel> getAllFuels() throws SQLException {
+    public List<FuelModel> getAllFuels() {
         String sql = "SELECT * FROM fuel";
         List<FuelModel> fuels = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class FuelDAO {
                 fuel.setFuel_name(rs.getString("fuel_name"));
                 fuels.add(fuel);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return fuels;

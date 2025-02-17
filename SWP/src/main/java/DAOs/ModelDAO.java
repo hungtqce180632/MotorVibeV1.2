@@ -11,13 +11,11 @@ import java.util.List;
 
 public class ModelDAO {
 
-    public static List<ModelsCarModel> getAllModels() throws SQLException {
+    public List<ModelsCarModel> getAllModels() {
         String sql = "SELECT * FROM model";
         List<ModelsCarModel> models = new ArrayList<>();
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 ModelsCarModel model = new ModelsCarModel();
@@ -25,7 +23,7 @@ public class ModelDAO {
                 model.setModel_name(rs.getString("model_name"));
                 models.add(model);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return models;
