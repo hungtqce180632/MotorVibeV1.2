@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BrandDAO {
 
-    public static List<BrandModel> getAllBrands() {
+    public List<BrandModel> getAllBrands() {
         String sql = "SELECT * FROM brands";
         List<BrandModel> brands = new ArrayList<>();
 
